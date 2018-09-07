@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Wallet on </title>
+    <link>https://wuzhanfly.github.io/tags/wallet/</link>
+    <description>Recent content in Wallet on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh_CN</language>
+    <lastBuildDate>Mon, 07 May 2018 15:48:33 +0800</lastBuildDate>
+    
+	<atom:link href="https://wuzhanfly.github.io/tags/wallet/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>HDWallet</title>
+      <link>https://wuzhanfly.github.io/hdwallet/</link>
+      <pubDate>Mon, 07 May 2018 15:48:33 +0800</pubDate>
+      
+      <guid>https://wuzhanfly.github.io/hdwallet/</guid>
+      <description> HD Wallet npm install bip39 bitcoinjs-lib const bip39 = require(&#39;bip39&#39;); const bitcoin = require(&#39;bitcoinjs-lib&#39;) const mnemonic = bip39.generateMnemonic(); const seed = bip39.mnemonicToSeed(mnemonic); const root = bitcoin.HDNode.fromSeedBuffer(seed) //const root = bitcoin.HDNode.fromSeedHex(seed.toString(&#39;hex&#39;)) const wallet = root.derivePath(&amp;quot;m/44&#39;/0&#39;/0&#39;/0/0&amp;quot;); const address = wallet.getAddress(); const wif = wallet.keyPair.toWIF(); console.log(mnemonic) console.log(address) console.log(wif)	 </description>
+    </item>
+    
+  </channel>
+</rss>

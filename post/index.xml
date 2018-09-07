@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on </title>
+    <link>https://wuzhanfly.github.io/post/</link>
+    <description>Recent content in Posts on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh_CN</language>
+    <lastBuildDate>Mon, 27 Aug 2018 18:48:33 +0800</lastBuildDate>
+    
+	<atom:link href="https://wuzhanfly.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>杂记</title>
+      <link>https://wuzhanfly.github.io/%E6%9D%82%E8%AE%B0/</link>
+      <pubDate>Mon, 27 Aug 2018 18:48:33 +0800</pubDate>
+      
+      <guid>https://wuzhanfly.github.io/%E6%9D%82%E8%AE%B0/</guid>
+      <description> Picture </description>
+    </item>
+    
+    <item>
+      <title>聊聊以太坊</title>
+      <link>https://wuzhanfly.github.io/%E8%81%8A%E8%81%8A%E4%BB%A5%E5%A4%AA%E5%9D%8A/</link>
+      <pubDate>Thu, 02 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://wuzhanfly.github.io/%E8%81%8A%E8%81%8A%E4%BB%A5%E5%A4%AA%E5%9D%8A/</guid>
+      <description>&lt;p&gt;原文地址：&lt;a href=&#34;https://medium.com/@preethikasireddy/how-does-ethereum-work-anyway-22d1df506369&#34;&gt;How does Ethereum work, anyway?&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>区块链的六层模</title>
+      <link>https://wuzhanfly.github.io/%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E5%85%AD%E5%B1%82%E6%A8%A1/</link>
+      <pubDate>Wed, 27 Jun 2018 18:48:33 +0800</pubDate>
+      
+      <guid>https://wuzhanfly.github.io/%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E5%85%AD%E5%B1%82%E6%A8%A1/</guid>
+      <description>区块链的六层模型
+区块链技术的模型是由自下而上的数据层、网络层、共识层、激励层、合约层和应用层组成。
+第一层“数据层”，封装了底层数据区块的链式结构，以及相关的非对称公私钥数据加密技术和时间戳等技术，这是整个区块链技术中最底层的数据结构。这些技术是构建全球金融系统的基础，数十年的使用证明了它非常安全的可靠性。而区块链，正式巧妙地把这些技术结合在了一起。 第二层“网络层”，包括P2P组网机制、数据传播机制和数据验证机制等。P2P组网技术早期应用在BT这类P2P下载软件中，这就意味着区块链具有自动组网功能。 第三层“共识层”，封装了网络节点的各类共识机制算法。共识机制算法是区块链的核心技术，因为这决定了到底是谁来进行记账，而记账决定方式将会影响整个系统的安全性和可靠性。目前已经出现了十余种共识机制算法，其中比较最为知名的有工作量证明机制（PoW，Proof of Work）、权益证明机制（PoS，Proof ofStake）、股份授权证明机制（DPoS，Delegated ProofofStake）等。数据层、网络层、共识层是构建区块链技术的必要元素，缺少任何一层都将不能称之为真正意义上的区块链技术。 第四层“激励层”，将经济因素集成到区块链技术体系中来，包括经济激励的发行机制和分配机制等，主要出现在公有链当中。在公有链中必须激励遵守规则参与记账的节点，并且惩罚不遵守规则的节点，才能让整个系统朝着良性循环的方向发展。而在私有链当中，则不一定需要进行激励，因为参与记账的节点往往是在链外完成了博弈，通过强制力或自愿来要求参与记账。 第五层“合约层”，封装各类脚本、算法和智能合约，是区块链可编程特性的基础。比特币本身就具有简单脚本的编写功能，而以太坊极大的强化了编程语言协议，理论上可以编写实现任何功能的应用。如果把比特币看成是全球账本的话，以太坊可以看作是一台“全球计算机”，任何人都可以上传和执行任意的应用程序，并且程序的有效执行能得到保证。 第六层“应用层”，封装了区块链的各种应用场景和案例，比如搭建在以太坊上的各类区块链应用即部署在应用层，而未来的可编程金融和可编程社会也将会是搭建在应用层。  </description>
+    </item>
+    
+    <item>
+      <title>Hyperledger的硬伤</title>
+      <link>https://wuzhanfly.github.io/hyperledger%E7%9A%84%E7%A1%AC%E4%BC%A4/</link>
+      <pubDate>Tue, 22 May 2018 15:48:33 +0800</pubDate>
+      
+      <guid>https://wuzhanfly.github.io/hyperledger%E7%9A%84%E7%A1%AC%E4%BC%A4/</guid>
+      <description>超级账本的硬伤 在使用超级账本的过程中我发现一个问题，超级账本无法并发操作一个 key，stub.PutState 是异步执行，我们无法确认它是否执行完成，在没有执行完成之前再发起操作，就会产生覆盖。这个问题限制了超级账本的很多场景应用，这是超级账本的硬伤。
+下面举一个例子来说明超级账本的问题
+func (s *SmartContract) counter(stub shim.ChaincodeStubInterface, args []string) pb.Response { key := &amp;quot;counter&amp;quot; count,err = stub.GetState(key) count = count + 1 stub.PutState(key,count) return shim.Success(count) }  使用多线程请求chaincode中的counter函数100次。你会发现最终 count 并不等于 100。学习过多线程的朋友一定很清楚出了什么问题。
+问题出在 stub.PutState 函数count还没有被写入，其他线程就开始读取stub.GetState(key)，导致读取旧数据，最终计数器数字混乱。
+很多场景需要更新区块中的数据，如果频繁操作，就会产生覆盖，目前Hyperledger Fabirc 并没有提供解决方案。
+ 我们不知道 stub.PutState是否执行完成，因为存储过程需要共识排序。
+ 超级账本没有提供事物处理或者互斥锁。
+  golang 提供的 mutex 也无法解决上面的问题，因为 mutex 锁只能工作在一个进程中。Peer / Orderer 节点不止一个。
+使用 redis实现分布式锁或许能实现，但思考过后决定放弃，转为传统数据库。
+总结，超级账本只适合一次写，多次读的场景，和极低频修改的场景</description>
+    </item>
+    
+    <item>
+      <title>BlockChain-02</title>
+      <link>https://wuzhanfly.github.io/blockchain-02/</link>
+      <pubDate>Sat, 19 May 2018 15:48:33 +0800</pubDate>
+      
+      <guid>https://wuzhanfly.github.io/blockchain-02/</guid>
+      <description>理解去中心化 传统数据库是中心化的，它通过一个IP地址和一个端口号为应用程序提供服务，后来出现了“主从”和“主主”结构，去中心化就是一种“多主”结构。
+与数据库相比区块链的去中心化更为复杂，他们的数据同步不是简单的二进制日志同步，而是通过加密传输，节点共识后才做数据存储。
+理解不可撰改 区块链的数据可以修改，但不能撰改。
+什么是撰改和修改，撰改是指非法修改区块链数据，而修改则是合法变更数据。
+区块链上的数据是可以修改的，无论存储多久的数据，随时可以修改里面内容。
+通常撰改区块链数据多指数据存储层面的修改。而修改则是通过chaincode 提供的修改函数变更区块链里面的数据。
+举例一个场景例子，在征信系统中，用户有时被拉入黑名单，但用户缴纳欠费后应该立即将其移到白名单中，这个过程就需要修改区块链上的数据。
+另外我还告诉你，多数区块链平台没有用户认证权限管理模块。所以无法控制区块中的那些数据可能修改，那些不能修改，那些数据XXX用户可以修改等等。即使有些区块链平台具备权限控制，颗粒度也无法想目前的数据库那些细。
+理解分布式记账 区块链中提到的账本与记账等等词汇是与会计无关的词汇。
+传统账本是指二位表格，记录某年某月产生的费用。
+时间 | 用途| 金额	-----------+-----+----- 2018-05-02 | 借 | 500 2018-05-10 | 还 | 500 2018-05-15 | 借 | 500 2018-05-20 | 借 | 500  如果账目比较多，可以拆账，将不同分类的账目，放到特定账本中。另外二位表格可以通过时间索引或者分类索引等等，快速找到一笔账目。
+区块链是怎么记账的？
+ +----------------+ +----------------+ +----------------+ +----------------+ | blockNumber 0 | | blockNumber 1 | | blockNumber 2 | | blockNumber 3 | | hash: 0x1 |&amp;lt;--- | hash: 0x2 | &amp;lt;---| hash: 0x3 | &amp;lt;---| hash: 0x4 | | parent:0x0 | | parent:0x1 | | parent:0x2 | | parent:0x3 | +----------------+ +----------------+ +----------------+ +----------------+ |时间：2018-05-02 | |时间：2018-05-10 | |时间：2018-05-15 | |时间：2018-05-20 | |用途：借 | |用途：借 | |用途：借 | |用途：借 | |金额：500 | |金额：500 | |金额：500 | |金额：500 | +----------------+ +----------------+ +----------------+ +----------------+  区块链可以理解为是传统账本的行列矩阵做这转换，每个事件收尾相连指向上一个区块地址形成链状，区块链不能通过分类拆分账本，所有账目全部在一个链条上。</description>
+    </item>
+    
+    <item>
+      <title>BlockChain-01</title>
+      <link>https://wuzhanfly.github.io/blockchain-01/</link>
+      <pubDate>Thu, 17 May 2018 15:48:33 +0800</pubDate>
+      
+      <guid>https://wuzhanfly.github.io/blockchain-01/</guid>
+      <description>区块链是什么？一句话，它是一种特殊的（非关系型）分布式数据库，这种数据库只能做插入和查找操作，并且没有管理员。
+首先，区块链的主要作用是储存信息。任何需要保存的信息，都可以写入区块链，也可以从里面读取，所以它是数据库。
+其次，任何人都可以架设服务器，加入区块链网络，成为一个节点。区块链的世界里面，没有中心节点，每个节点都是平等的，都保存着整个数据库。你可以向任何一个节点，写入/读取数据，因为所有节点最后都会同步，保证区块链一致。
+智能合约是区块数据业务逻辑的封装.
+区块链具有去中心化安全性、可追溯、不可篡改等特性。
+区块链目前的底层只适合做，低频高价值的业务。例如区块链+征信，区块链+资产，区块链+支付，区块链+供应链，房地产+区块链（登记，转账）
+你能保证上链的数据绝对不会被篡改；但你不能保证，上传的数据是真的
+安全分为很多层，区块链只能做到存储层的安全。例如安全分为用户层，应用层，逻辑层，存储层等等。区块链无法解决用户层，应用层，逻辑层等安全问题，他只能保证存储在硬盘上的区块不被修改。</description>
+    </item>
+    
+    <item>
+      <title>关于Hyperledger的点点滴</title>
+      <link>https://wuzhanfly.github.io/%E5%85%B3%E4%BA%8Ehyperledger%E7%9A%84%E7%82%B9%E7%82%B9%E6%BB%B4/</link>
+      <pubDate>Thu, 17 May 2018 15:48:33 +0800</pubDate>
+      
+      <guid>https://wuzhanfly.github.io/%E5%85%B3%E4%BA%8Ehyperledger%E7%9A%84%E7%82%B9%E7%82%B9%E6%BB%B4/</guid>
+      <description>Docker 开发环境 环境安装
+安装 fabric-samples
+git clone https://github.com/hyperledger/fabric-samples.git cd fabric-samples	 [root@localhost ~]# cd fabric-samples/chaincode-docker-devmode/ [root@localhost chaincode-docker-devmode]# mkdir chaincode [root@localhost chaincode-docker-devmode]# cp docker-compose-simple.yaml docker-compose.yaml [root@localhost chaincode-docker-devmode]# sed -i &amp;quot;s|./../chaincode|./chaincode|g&amp;quot; docker-compose.yaml	 chaincode 目录是开发目录
+清理镜像和容器
+docker rm -f $(docker ps -q -a) docker rmi -f $(docker images -q)	 安装所需镜像
+[root@localhost chaincode-docker-devmode]# curl -s https://raw.githubusercontent.com/oscm/shell/master/blockchain/hyperledger/fabric/1.1.0/all-in-one.sh | bash	[root@localhost chaincode-docker-devmode]# docker images REPOSITORY TAG IMAGE ID CREATED SIZE hyperledger/fabric-tools latest 6a8993b718c8 2 months ago 1.</description>
+    </item>
+    
+    <item>
+      <title>HDWallet</title>
+      <link>https://wuzhanfly.github.io/hdwallet/</link>
+      <pubDate>Mon, 07 May 2018 15:48:33 +0800</pubDate>
+      
+      <guid>https://wuzhanfly.github.io/hdwallet/</guid>
+      <description> HD Wallet npm install bip39 bitcoinjs-lib const bip39 = require(&#39;bip39&#39;); const bitcoin = require(&#39;bitcoinjs-lib&#39;) const mnemonic = bip39.generateMnemonic(); const seed = bip39.mnemonicToSeed(mnemonic); const root = bitcoin.HDNode.fromSeedBuffer(seed) //const root = bitcoin.HDNode.fromSeedHex(seed.toString(&#39;hex&#39;)) const wallet = root.derivePath(&amp;quot;m/44&#39;/0&#39;/0&#39;/0/0&amp;quot;); const address = wallet.getAddress(); const wif = wallet.keyPair.toWIF(); console.log(mnemonic) console.log(address) console.log(wif)	 </description>
+    </item>
+    
+    <item>
+      <title>Hello World</title>
+      <link>https://wuzhanfly.github.io/hello-world/</link>
+      <pubDate>Tue, 02 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://wuzhanfly.github.io/hello-world/</guid>
+      <description>一个人的路上
+​ 每天定时地在这条路上摆动，用脚步丈量这熟悉的街道，摆渡掉时间，它们像流水般一去不复返。
+​ 我熟悉我的时间，清楚下一个钟头有哪一个老师在讲台上滔滔不绝；我熟悉每一个站台，清楚它们永远忠诚的站立位置；我熟悉邻桌女孩的味道，私人的温暖味道。
+​ 常常一个人行走在路上。因为家离得远，中学生活的印象就是自己匆匆的向学校奔跑，更熟悉的是风的味道，穿过头发，滑过指尖的清爽感觉。清晨的空气并非想象中的清新，车厢里有微微的腥湿感。有学生抓着英语课本闭着眼背诵，有女孩神情淡漠的向耳朵里塞耳机，有表情委顿的男人从口袋里摸出硬币填进售票机。一切都像昨天或明天的所有早晨一样，我强打起精神抱着书包，眼睛投向窗外。
+​ 窗外的阳光泛着灰尘的光影，我在景物晃过眼前时，看到许多孩子面孔相似的吮吸着牛奶，背着书包。我忽然发现原来不只我一个人，他们都和我一样，顶着一书包的分数和理想。
+​ 而我的这辆公车，依然循着它的轨迹晃悠悠的前进，并不时吐出一部分，再吞下一部分，像是得了慢性胃病。
+​ 只有这些虔诚的站台钟于职守，遥遥相望，保持着缄默，显得那么可靠。但它们站立的生命是没有那些树精彩的。这些树，粗壮而坚实，一些树皮脱落，裸露出褐色的沧桑来，似乎那就是它们苍老又沉静的心。残叶飘荡在地上，又不曾归根，被人扫成一堆，不知拉到什么地方去了。
+​ 树的生活态度又是积极的。消亡但又不断在内心种植新鲜的东西，它们存活，成长，繁密起来。色彩变得鲜亮，充满喜悦。但再辉煌，人们也会把它们隔行种下，各不相干。所以，我想它们是寂寞的，一生只有遥遥相望，不能言语。
+​ 可是它们拼命地疯长&amp;mdash;-就像我，这个疯长的孩子一样。它们时而满目沧寂，只剩下干枯的躯干。可它们没有死亡，看起来只是一个个孤单地在路上。在匆匆过路的我看来，今天的树，与昨天或明天并无区别，这平常得就像我的生活，昨天与明天都会一个人在路上行走，以后依然会这样。但无意间，我发现它们在成长，风穿过枝头，显得彼此清冷又空寂，可是，在地底下，在我看不见的地方，它们的根，暗中不停地壮大，伸长，有一天，根尖会触及彼此，纠缠并相互安慰，而那时，一些等待也就不再徒劳。 我抱着书包，看着熟悉的阳光折射下整个小城的尘埃，想到了一句话：没有人知道我们会多好。这样的自我安慰那么微不足道，细小得像空气中飞舞的尘埃。但它们跟随着我在路上，在十年的奔跑中，吸附在我额头和皮肤的纹理中，构筑成我坚强的理由。</description>
+    </item>
+    
+  </channel>
+</rss>

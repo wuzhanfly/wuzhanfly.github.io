@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh_CN" />
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>区块链的六层模 &middot; </title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="https://wuzhanfly.github.io/favicon.ico" />
+    <link rel="canonical" href="https://wuzhanfly.github.io/%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E5%85%AD%E5%B1%82%E6%A8%A1/" />
+
+     <meta name="description" content="块链技术的模型是由自下而上的数据层、网络层、共识层、激励层、合约层和应用层组成。" /> 
+
+     
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:image" content="https://wuzhanfly.github.io/uploads/BC.jpeg"/>
+    
+ 
+    <meta name="twitter:title" content="区块链的六层模"/>
+    <meta name="twitter:description" content="块链技术的模型是由自下而上的数据层、网络层、共识层、激励层、合约层和应用层组成。"/>
+    <meta name="twitter:url" content="https://wuzhanfly.github.io/%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E5%85%AD%E5%B1%82%E6%A8%A1/" />
+    <meta name="twitter:site" content="@wuzhanfly"/>
+
+    <meta property="og:site_name" content="" />
+    <meta property="og:title" content="区块链的六层模 &middot; Welcome" />
+    <meta property="og:url" content="https://wuzhanfly.github.io/%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E5%85%AD%E5%B1%82%E6%A8%A1/" />
+    <meta property="article:publisher" content="https://www.facebook.com/wufly" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:description" content="块链技术的模型是由自下而上的数据层、网络层、共识层、激励层、合约层和应用层组成。" />
+
+    <meta property="article:published_time" content="2018-06-27T18:48:33&#43;08:00" />
+    <meta property="article:tag" content="blockchain" />
+
+    <meta property="og:image" content="https://wuzhanfly.github.io/uploads/BC.jpeg"/>
+
+
+    <meta name="generator" content="Hugo 0.46" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" type="text/css" href="https://wuzhanfly.github.io/built/screen.css" /> 
+    <link rel="stylesheet" type="text/css" href="https://wuzhanfly.github.io/css/casper-two.css" /> 
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" />
+    
+
+     
+
+</head>
+
+
+<body class="post-template">
+  <div class="site-wrapper"> 
+
+<header class="site-header outer">
+  <div class="inner">
+    <nav class="site-nav">
+      <div class="site-nav-left">
+
+        <ul class="nav" role="menu">
+        
+        
+        
+            <li class="" role="menuitem">
+              <a href="/">Main</a>
+            </li>
+        
+            <li class="" role="menuitem">
+              <a href="/tags/project/">Project</a>
+            </li>
+        
+            <li class="" role="menuitem">
+              <a href="/categories/mylift/">MyLift</a>
+            </li>
+        
+            <li class="" role="menuitem">
+              <a href="https://google.com/">Google</a>
+            </li>
+        
+      </ul></div>
+
+      <div class="site-nav-right">
+        <div class="social-links">
+                    <a class="social-link social-link-fb" href="https://www.facebook.com/wufly" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg></a>
+
+                    <a class="social-link social-link-tw" href="https://twitter.com/wuzhanfly" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg></a>
+
+                    <a class="social-link" href="https://github.com/wuzhanfly" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+
+                    
+
+                    
+        </div>  
+            
+      </div>
+
+    </nav>  
+
+  </div>
+</header>
+
+<main id="site-main" class="site-main outer" role="main">
+  <div class="inner">
+    
+      <article class="post-full post"> 
+    <header class="post-full-header">
+        <section class="post-full-meta">
+            <time class="post-full-meta-date" datetime="2018-06-27">27 June 2018</time>
+                <span class="date-divider">/</span> <a href="https://wuzhanfly.github.iotags/blockchain/">#blockchain</a>&nbsp;
+        </section>
+        <h1 class="post-full-title">区块链的六层模</h1>
+    </header>
+    
+    <figure class="post-full-image" style="background-image: url(https://wuzhanfly.github.io/uploads/BC.jpeg)">
+    </figure>
+
+    <section class="post-full-content">
+        <div class="kg-card-markdown">
+        <p>区块链的六层模型</p>
+
+<p>区块链技术的模型是由自下而上的数据层、网络层、共识层、激励层、合约层和应用层组成。</p>
+
+<pre><code>第一层“数据层”，封装了底层数据区块的链式结构，以及相关的非对称公私钥数据加密技术和时间戳等技术，这是整个区块链技术中最底层的数据结构。这些技术是构建全球金融系统的基础，数十年的使用证明了它非常安全的可靠性。而区块链，正式巧妙地把这些技术结合在了一起。
+
+第二层“网络层”，包括P2P组网机制、数据传播机制和数据验证机制等。P2P组网技术早期应用在BT这类P2P下载软件中，这就意味着区块链具有自动组网功能。
+
+第三层“共识层”，封装了网络节点的各类共识机制算法。共识机制算法是区块链的核心技术，因为这决定了到底是谁来进行记账，而记账决定方式将会影响整个系统的安全性和可靠性。目前已经出现了十余种共识机制算法，其中比较最为知名的有工作量证明机制（PoW，Proof of Work）、权益证明机制（PoS，Proof ofStake）、股份授权证明机制（DPoS，Delegated ProofofStake）等。数据层、网络层、共识层是构建区块链技术的必要元素，缺少任何一层都将不能称之为真正意义上的区块链技术。
+
+第四层“激励层”，将经济因素集成到区块链技术体系中来，包括经济激励的发行机制和分配机制等，主要出现在公有链当中。在公有链中必须激励遵守规则参与记账的节点，并且惩罚不遵守规则的节点，才能让整个系统朝着良性循环的方向发展。而在私有链当中，则不一定需要进行激励，因为参与记账的节点往往是在链外完成了博弈，通过强制力或自愿来要求参与记账。
+
+第五层“合约层”，封装各类脚本、算法和智能合约，是区块链可编程特性的基础。比特币本身就具有简单脚本的编写功能，而以太坊极大的强化了编程语言协议，理论上可以编写实现任何功能的应用。如果把比特币看成是全球账本的话，以太坊可以看作是一台“全球计算机”，任何人都可以上传和执行任意的应用程序，并且程序的有效执行能得到保证。
+
+第六层“应用层”，封装了区块链的各种应用场景和案例，比如搭建在以太坊上的各类区块链应用即部署在应用层，而未来的可编程金融和可编程社会也将会是搭建在应用层。
+</code></pre>
+    
+        </div>
+    </section>
+
+    <footer class="post-full-footer">
+      <section class="author-card">
+        <img class="author-profile-image" src="https://wuzhanfly.github.io/uploads/logo.jpeg" alt="Author" />
+        <section class="author-card-content">
+            <h4 class="author-card-name"><a href="https://wuzhanfly.github.io/">wuzhanfly</a></h4>
+                <p>Coder Developer</p>
+        </section>
+      </section>
+    </footer>
+</article>
+    
+    
+    
+
+<div id="disqus_thread"></div>
+<script>
+
+
+
+
+var disqus_config = function () {
+this.page.url = "https:\/\/wuzhanfly.github.io\/%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E5%85%AD%E5%B1%82%E6%A8%A1\/";  
+this.page.identifier = "https:\/\/wuzhanfly.github.io\/%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E5%85%AD%E5%B1%82%E6%A8%A1\/"; 
+};
+
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = 'https://吴战飞.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  </div>
+</main>
+
+
+<aside class="read-next outer">
+  <div class="inner">
+    <div class="read-next-feed">      
+      
+<article class="read-next-card" 
+            style="background-image: url(https://wuzhanfly.github.io/uploads/book.jpeg);" >
+    <header class="read-next-card-header">
+        <small class="read-next-card-header-sitetitle">&mdash; Welcome &mdash;</small>
+        
+        <h3 class="read-next-card-header-title"><a href="https://wuzhanfly.github.iotags/blockchain/">#blockchain</a></h3>
+    </header>
+    <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+    </div>
+
+    <div class="read-next-card-content">
+      
+        <ul>
+          <li><a href="https://wuzhanfly.github.io/%E6%9D%82%E8%AE%B0/">杂记</a></li>            
+        
+          <li><a href="https://wuzhanfly.github.io/hdwallet/">HDWallet</a></li>            
+        
+          <li><a href="https://wuzhanfly.github.io/%E5%85%B3%E4%BA%8Ehyperledger%E7%9A%84%E7%82%B9%E7%82%B9%E6%BB%B4/">关于Hyperledger的点点滴</a></li>            
+        
+          <li><a href="https://wuzhanfly.github.io/%E8%81%8A%E8%81%8A%E4%BB%A5%E5%A4%AA%E5%9D%8A/">聊聊以太坊</a></li>            
+        </ul>
+    </div>
+    <footer class="read-next-card-footer">
+      
+        <a href="https://wuzhanfly.github.iotags/blockchain/">See all related posts →</a>
+    </footer>
+</article>
+
+
+      
+      <article class="post-card post"> 
+    
+    <a class="post-card-image-link" href="https://wuzhanfly.github.io/%E8%81%8A%E8%81%8A%E4%BB%A5%E5%A4%AA%E5%9D%8A/">
+      <div class="post-card-image" style="background-image: url(https://wuzhanfly.github.io/uploads/girl.jpeg)"></div>
+    </a>
+    
+
+    <div class="post-card-content">
+      <a class="post-card-content-link" href="https://wuzhanfly.github.io/%E8%81%8A%E8%81%8A%E4%BB%A5%E5%A4%AA%E5%9D%8A/">
+          <header class="post-card-header">
+              <span class="post-card-tags">
+              #blockchain 
+              #project  </span>
+              
+              <h2 class="post-card-title">聊聊以太坊</h2>
+          </header>
+          <section class="post-card-excerpt">
+               
+                <p>区块链本质上，就是一个保存数字交易永久记录的公共数据库。重要的是，这个数据库不需要任何中央权威机构来维持和保护它。相反的它以一个“无信任”的交易系统来运行—一个个体在不需要信任任何第三方或对方的情况下进行点对点交易的架构</p>
+              
+          </section>
+      </a>
+
+      <footer class="post-card-meta">
+          <img class="author-profile-image" src="https://wuzhanfly.github.io/uploads/logo.jpeg" alt="Author" />
+          <span class="post-card-author"><a href="/">wuzhanfly</a></span>
+      </footer>
+    </div>
+</article>
+      
+      
+      <article class="post-card post"> 
+    
+    <a class="post-card-image-link" href="https://wuzhanfly.github.io/hyperledger%E7%9A%84%E7%A1%AC%E4%BC%A4/">
+      <div class="post-card-image" style="background-image: url(https://wuzhanfly.github.io/uploads/hyperledger.jpg)"></div>
+    </a>
+    
+
+    <div class="post-card-content">
+      <a class="post-card-content-link" href="https://wuzhanfly.github.io/hyperledger%E7%9A%84%E7%A1%AC%E4%BC%A4/">
+          <header class="post-card-header">
+              <span class="post-card-tags">
+              #blockchain 
+              #Hyperledge  </span>
+              
+              <h2 class="post-card-title">Hyperledger的硬伤</h2>
+          </header>
+          <section class="post-card-excerpt">
+               
+                <p>在使用超级账本的过程中我发现一个问题，超级账本无法并发操作一个 key，stub.PutState 是异步执行，我们无法确认它是否执行完成，在没有执行完成之前再发起操作，就会产生覆盖。这个问题限制了超级账本的很多场景应用。</p>
+              
+          </section>
+      </a>
+
+      <footer class="post-card-meta">
+          <img class="author-profile-image" src="https://wuzhanfly.github.io/uploads/logo.jpeg" alt="Author" />
+          <span class="post-card-author"><a href="/">wuzhanfly</a></span>
+      </footer>
+    </div>
+</article>
+      
+    </div>
+  </div>
+</aside>
+
+<div class="floating-header">
+  <div class="floating-header-logo">
+    <a href="https://wuzhanfly.github.io/">
+      
+      <span></span>
+    </a>
+  </div>
+  <span class="floating-header-divider">&mdash;</span>
+  <div class="floating-header-title">区块链的六层模</div>
+  <div class="floating-header-share">
+    <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+     <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/></svg>
+    </div>
+    
+    <a class="floating-header-share-tw" href="https://twitter.com/share?text=%e5%8c%ba%e5%9d%97%e9%93%be%e7%9a%84%e5%85%ad%e5%b1%82%e6%a8%a1&amp;url=https%3a%2f%2fwuzhanfly.github.io%2f%25E5%258C%25BA%25E5%259D%2597%25E9%2593%25BE%25E7%259A%2584%25E5%2585%25AD%25E5%25B1%2582%25E6%25A8%25A1%2f"
+          onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+      </a>
+      <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fwuzhanfly.github.io%2f%25E5%258C%25BA%25E5%259D%2597%25E9%2593%25BE%25E7%259A%2584%25E5%2585%25AD%25E5%25B1%2582%25E6%25A8%25A1%2f"
+          onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+      </a>
+  </div>
+
+  <progress class="progress" value="0">
+    <div class="progress-container">
+      <span class="progress-bar"></span>
+    </div>
+  </progress>
+</div>
+
+
+
+<footer class="site-footer outer">
+  <div class="site-footer-content inner">
+    <section class="copyright" style="line-height: 1.3em;">
+      <a href="/">wuzhanfly</a>  <br>
+      
+    </section>
+    <nav class="site-footer-nav">
+       
+        <a href="https://www.facebook.com/wufly" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://twitter.com/wuzhanfly" target="_blank" rel="noopener">Twitter</a>
+        <a href="https://github.com/wuzhanfly" target="_blank" rel="noopener">Github</a>
+        
+        
+    </nav>  
+  </div>
+</footer>
+
+</div>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="https://wuzhanfly.github.io/js/jquery.fitvids.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+    <script>
+
+
+
+
+
+$(document).ready(function () {
+    
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+</body></html>
