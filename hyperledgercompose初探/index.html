@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="zh_CN" />
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>hyperledgerCompose初探 &middot; </title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="https://wuzhanfly.github.io/favicon.ico" />
+    <link rel="canonical" href="https://wuzhanfly.github.io/hyperledgercompose%E5%88%9D%E6%8E%A2/" />
+
+     <meta name="description" content="用一句话来描述区块链：区块链是一个共享的不可修改的账本，可用来记录一个网络上所有交易的历史。这里所说的交易,翻译自Transaction。也可以将之称为事务，本文将之统一称为交易。" /> 
+
+     
+    
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:image" content="https://wuzhanfly.github.io/uploads/hyp.png"/>
+    
+ 
+    <meta name="twitter:title" content="hyperledgerCompose初探"/>
+    <meta name="twitter:description" content="用一句话来描述区块链：区块链是一个共享的不可修改的账本，可用来记录一个网络上所有交易的历史。这里所说的交易,翻译自Transaction。也可以将之称为事务，本文将之统一称为交易。"/>
+    <meta name="twitter:url" content="https://wuzhanfly.github.io/hyperledgercompose%E5%88%9D%E6%8E%A2/" />
+    <meta name="twitter:site" content="@wuzhanfly"/>
+
+    <meta property="og:site_name" content="" />
+    <meta property="og:title" content="hyperledgerCompose初探 &middot; Welcome" />
+    <meta property="og:url" content="https://wuzhanfly.github.io/hyperledgercompose%E5%88%9D%E6%8E%A2/" />
+    <meta property="article:publisher" content="https://www.facebook.com/wufly" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:description" content="用一句话来描述区块链：区块链是一个共享的不可修改的账本，可用来记录一个网络上所有交易的历史。这里所说的交易,翻译自Transaction。也可以将之称为事务，本文将之统一称为交易。" />
+
+    <meta property="article:published_time" content="2018-12-02T00:00:00Z" />
+    <meta property="article:tag" content="blockchain" /><meta property="article:tag" content="Hyperledge" />
+
+    <meta property="og:image" content="https://wuzhanfly.github.io/uploads/hyp.png"/>
+
+
+    <meta name="generator" content="Hugo 0.46" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" type="text/css" href="https://wuzhanfly.github.io/built/screen.css" /> 
+    <link rel="stylesheet" type="text/css" href="https://wuzhanfly.github.io/css/casper-two.css" /> 
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" />
+    
+
+     
+
+</head>
+
+
+<body class="post-template">
+  <div class="site-wrapper"> 
+
+<header class="site-header outer">
+  <div class="inner">
+    <nav class="site-nav">
+      <div class="site-nav-left">
+
+        <ul class="nav" role="menu">
+        
+        
+        
+            <li class="" role="menuitem">
+              <a href="/">Main</a>
+            </li>
+        
+            <li class="" role="menuitem">
+              <a href="/tags/project/">Project</a>
+            </li>
+        
+            <li class="" role="menuitem">
+              <a href="/categories/mylift/">MyLift</a>
+            </li>
+        
+            <li class="" role="menuitem">
+              <a href="https://google.com/">Google</a>
+            </li>
+        
+      </ul></div>
+
+      <div class="site-nav-right">
+        <div class="social-links">
+                    <a class="social-link social-link-fb" href="https://www.facebook.com/wufly" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg></a>
+
+                    <a class="social-link social-link-tw" href="https://twitter.com/wuzhanfly" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg></a>
+
+                    <a class="social-link" href="https://github.com/wuzhanfly" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+
+                    
+
+                    
+        </div>  
+            
+      </div>
+
+    </nav>  
+
+  </div>
+</header>
+
+<main id="site-main" class="site-main outer" role="main">
+  <div class="inner">
+    
+      <article class="post-full post"> 
+    <header class="post-full-header">
+        <section class="post-full-meta">
+            <time class="post-full-meta-date" datetime="2018-12-02">2 December 2018</time>
+                <span class="date-divider">/</span> <a href="https://wuzhanfly.github.iotags/blockchain/">#blockchain</a>&nbsp;<a href="https://wuzhanfly.github.iotags/hyperledge/">#Hyperledge</a>&nbsp;
+        </section>
+        <h1 class="post-full-title">hyperledgerCompose初探</h1>
+    </header>
+    
+    <figure class="post-full-image" style="background-image: url(https://wuzhanfly.github.io/uploads/hyp.png)">
+    </figure>
+
+    <section class="post-full-content">
+        <div class="kg-card-markdown">
+        
+
+<h2 id="基本概念与知识">基本概念与知识</h2>
+
+<h3 id="基本概念与重要平台-技术-工具">基本概念与重要平台、技术、工具</h3>
+
+<p>用一句话来描述区块链：区块链是一个共享的不可修改的账本，可用来记录一个网络上所有交易的历史。这里所说的&rdquo;交易&rdquo;翻译自&rdquo;Transaction&rdquo;。也可以将之称为&rdquo;事务&rdquo;，本文将之统一称为&rdquo;交易&rdquo;。</p>
+
+<p>Hyperledger 是 Linux 基金会主持的一个开源项目，启动于 2015 年，其核心目标是建立开放的、标准化的、企业级的、能支持商业交易的分布式账本的框架与基础代码。</p>
+
+<p>Hyperledger Fabric 是 Hyperledger 项目的一个组成部分，是一个区块链框架的实现。它将成为区块链应用开发、解决方案的基础。Fabric 框架支持组件化、可插拔的共识服务（Consensus Service）、成员服务（Membership Service）；&rdquo;许可（Permissioned）&rdquo;特性使之为&rdquo;私有性&rdquo;、&rdquo;保密性&rdquo;提供了可靠的解决方案；智能合约（Smart Contracts）在 Fabric 中通过&rdquo;Chaincode&rdquo;得以实现。Fabric 最初是由 Digital Asset、IBM 贡献给 Hyperledger 项目的。</p>
+
+<p>Hyperledger Composer 也是 Hyperledger 项目的一个组成部分。通过它，人们可以更快速、容易地建立区块链业务模型，进行区块链网络及应用的开发、部署，并与现有系统、数据进行集成。</p>
+
+<p>本文中，对于 Fabric 的学习，正是以 Composer 作为入口与基础工具，这样学习的效率更高。在学习初期，Fabric 与 Composer 的知识是紧密结合的，在后期，我们会对这两项技术分别深入学习、研究。</p>
+
+<h3 id="知识准备">知识准备</h3>
+
+<p>区块链技术涉及到的技术比较多，本文希望能帮助读者将焦点一直放在区块链本身上，即使对某项技术学习得不是非常深入，也不会影响对于 Fabric 的学习。一般来说，希望读者还是能对以下知识预先有所了解：Ubuntu，Docker，Node.js，Javascript，npm，CA。</p>
+
+<h2 id="安装-fabric-之前的环境准备">安装 Fabric 之前的环境准备</h2>
+
+<h3 id="ubuntu-16-04-lts-64-bit">Ubuntu 16.04 LTS 64-bit</h3>
+
+<p>Fabric 支持 MacOSX、*nix 或者 Windows 10 操作系统；Composer 支持 Ubuntu Linux 14.04 / 16.04 LTS (64-bit)或者 MacOS 10.12 操作系统。</p>
+
+<p>现在，我们使用 <strong>Ubuntu</strong><strong>16.04 LTS 64-bit</strong>，作为我们的区块链部署系统。对于 Ubuntu 系统的安装与管理，这里不再详述，但可以通过以下命令确认版本信息：</p>
+
+<h4 id="确认-ubuntu-linux-版本">确认 Ubuntu Linux 版本</h4>
+
+<pre><code># cat /etc/issue
+Ubuntu 16.04.4 LTS \n \l
+# uname -a
+</code></pre>
+
+<h3 id="系统用户">系统用户</h3>
+
+<p>我们在学习过程中，几乎所有操作都通过一个专门的用户来完成（在本文示例中，使用的用户名为：fabric；读者可以根据需要使用自己的用户名，但请注意在后续示例中要相应修改）。请不要使用 root 用户。</p>
+
+<h4 id="添加一个新用户">添加一个新用户</h4>
+
+<pre><code>adduser fabric
+</code></pre>
+
+<h4 id="将此用户加入-sudo-用户组">将此用户加入 sudo 用户组</h4>
+
+<pre><code>usermod -aG sudo fabric
+</code></pre>
+
+<h4 id="切换为-fabric-用户-并进入用户目录">切换为 fabric 用户，并进入用户目录</h4>
+
+<pre><code>su fabric
+$ cd ~
+</code></pre>
+
+<h3 id="安装-node-js-npm-docker-docker-compose-python">安装 Node.js, npm, Docker, Docker Compose, Python</h3>
+
+<p>现在需要安装 Node.js, Docker 等软件，Hyperledger 提供了一个脚本，可以用来自动安装。</p>
+
+<h4 id="下载并执行自动安装脚本">下载并执行自动安装脚本</h4>
+
+<pre><code>$ curl -O https://hyperledger.github.io/composer/latest/prereqs-ubuntu.sh
+$ chmod u+x prereqs-ubuntu.sh
+$ ./prereqs-ubuntu.sh
+</code></pre>
+
+<p>安装成功后，会显示以下内容，包括安装的软件名称及版本号。（后续版本可能会有变化。）</p>
+
+<pre><code>Installation completed, versions installed are:
+Node:             v8.14.0
+npm:              6.4.1
+Docker:           Docker version 18.09.0, build 4d60db4
+Docker Compose:   docker-compose version 1.13.0, build 1719ceb
+Python:           Python 2.7.12
+Please logout then login before continuing.
+</code></pre>
+
+<h4 id="退出并重新登录-很重要">退出并重新登录(很重要！！！！)</h4>
+
+<p><strong>请退出当前用户会话，关闭客户端工具与 Ubuntu 的连接；并重新以用户 fabric</strong> 登录 Ubuntu，以使系统设置生效。</p>
+
+<p>如果是自行手动安装这几项软件但版本号并不完全一致，可能会给后续过程带来一些障碍。所以，为节约时间，尽量使用这个自动安装脚本；</p>
+
+<h2 id="使用-hyperledger-composer-安装-fabric-runtime">使用 Hyperledger Composer 安装 Fabric Runtime</h2>
+
+<p>现在，终于要正式开始安装 Composer 和 Fabric 了。</p>
+
+<h3 id="安装-composer">安装 Composer</h3>
+
+<p>Hyperledger Composer 是一个开放的开发框架、工具集，可以帮助人们更容易地开发、部署区块链应用。它支持 Fabric，并提供 Javascript SDK。我们可以通过 npm 来安装它的一系列组件。</p>
+
+<p>请注意，您<strong>不应</strong>使用<code>su</code>或<code>sudo</code>用于以下npm命令。</p>
+
+<p>基本的CLI工具：</p>
+
+<pre><code>npm install -g composer-cli
+</code></pre>
+
+<p>用于在计算机上运行REST Server以将业务网络公开为RESTful API的实用程序：</p>
+
+<pre><code>npm install -g composer-rest-server
+</code></pre>
+
+<p>生成应用程序资产的有用工具：</p>
+
+<pre><code>npm install -g generator-hyperledger-composer
+</code></pre>
+
+<p>Yeoman是一个生成应用程序的工具，它利用<code>generator-hyperledger-composer</code>：</p>
+
+<pre><code>npm install -g yo
+</code></pre>
+
+<h3 id="第2步-安装playground">第2步：安装Playground</h3>
+
+<p>如果您已经在线尝试过Composer，那么您将看到浏览器应用程序“Playground”。您也可以在开发计算机上本地运行它，为您提供用于查看和演示业务网络的UI。</p>
+
+<p>用于简单编辑和测试的浏览器应用商业网络：</p>
+
+<pre><code>npm install -g composer-playground
+</code></pre>
+
+<h3 id="第３步-安装hyperledger-fabric">第３步：安装Hyperledger Fabric</h3>
+
+<p>此步骤为您提供了部署业务网络的本地Hyperledger Fabric运行时。</p>
+
+<p>在选择的目录中（我们将假设<code>~/fabric-dev-servers</code>），获取<code>.tar.gz</code>包含安装Hyperledger Fabric的工具的文件：</p>
+
+<p>复制</p>
+
+<pre><code>mkdir ~/fabric-dev-servers &amp;&amp; cd ~/fabric-dev-servers
+
+curl -O https://raw.githubusercontent.com/hyperledger/composer-tools/master/packages/fabric-dev-servers/fabric-dev-servers.tar.gz
+tar -ｚxvf fabric-dev-servers.tar.gz
+</code></pre>
+
+<p>使用刚下载和解压缩的脚本下载本地Hyperledger Fabric v1.2.1运行时：</p>
+
+<pre><code>cd ~/fabric-dev-servers
+export FABRIC_VERSION=hlfv12
+./downloadFabric.sh
+</code></pre>
+
+<h1 id="控制您的开发环境">控制您的开发环境</h1>
+
+<h2 id="启动和停止hyperledger-fabric">启动和停止Hyperledger Fabric</h2>
+
+<h4 id="第一次启动新运行时-您需要运行启动脚本-然后生成peeradmin卡">第一次启动新运行时，您需要运行启动脚本，然后生成PeerAdmin卡：</h4>
+
+<pre><code>cd ~/fabric-dev-servers
+export FABRIC_VERSION=hlfv12
+./startFabric.sh
+./createPeerAdminCard.sh
+</code></pre>
+
+<p><img src="../../uploads/img/card.png" alt="card" /></p>
+
+<p>这个脚本会生成一个 Card 文件，它包含了 Fabric 网络的信息以及管理员 PeerAdmin 与之连接所必须的信息；即管理员的身份证明文件；生成后这个文件会被导入到 Composer，你可以在~/.composer/cards/PeerAdmin@hlfv1 目录下找到被导入的 PeerAdmin Card 的文件内容。之后，Composer 会利用这个 Card 文件建立起到 Fabric 网络的连接。</p>
+
+<p>您可以使用启动和停止运行时<code>~/fabric-dev-servers/stopFabric.sh</code>，然后重新启动它<code>~/fabric-dev-servers/startFabric.sh</code>。</p>
+
+<p>在开发结束时，运行<code>~/fabric-dev-servers/stopFabric.sh</code>，然后<code>~/fabric-dev-servers/teardownFabric.sh</code>。</p>
+
+<h4 id="请注意-如果您运行了拆卸脚本-则下次启动运行时时-您需要创建一个新的peeradmin卡-即重复第一次启动时一样">请注意，如果您运行了拆卸脚本，则下次启动运行时时，您需要创建一个新的PeerAdmin卡，即重复第一次启动时一样。</h4>
+
+<h3 id="补充-使用docker-ps-查询是否有容器在运行-若有使用以下命令停止">补充：使用docker ps 查询是否有容器在运行，若有使用以下命令停止：</h3>
+
+<pre><code>docker stop $(docker ps -aq)
+docker rm $(docker ps -aq)
+docker network prune
+</code></pre>
+
+<h2 id="部署第一个-fabric-区块链业务网络">部署第一个 Fabric 区块链业务网络</h2>
+
+<p>Fabric runtime 已经被成功安装、启动了，现在我们要部署第一个 Fabric 区块链业务网络。</p>
+
+<h3 id="准备业务网络">准备业务网络</h3>
+
+<p>为使学习过程更容易，我们直接利用 Yeoman 及已经下载的 Generator 生成区块链网络框架。</p>
+
+<p>在以后的章节中，我们会介绍如何按步骤手工完成定义、部署过程。</p>
+
+<h4 id="生成业务网络定义-business-network-definition-bnd">生成业务网络定义（Business Network Definition – BND）</h4>
+
+<pre><code>`$ yo hyperledger-composer:businessnetwork`
+</code></pre>
+
+<p>参数 businessnetwork 来自于之前安装的 generator-hyperledger-composer，表示了一组对应的模板文件。可以在 ~/.nvm/versions/node/v8.14.0/lib/node_modules/generator-hyperledger-composer/generators/businessnetwork/templates/ 下找到即将生成的内容的模板。</p>
+
+<p>运行会提示输入相关信息，为方便学习，建议 Business network name 定义为：tutorial-network；Namespace 定义为：org.example.biznet，其他信息可以自行决定内容。将定义的内容如下：</p>
+
+<p><img src="../../uploads/img/businessnetwork.png" alt="businessnetwork" /></p>
+
+<p>执行成功后，在当前 ~/fabric-dev-servers 目录下，新增了一个目录 tutorial-network, 这就是将要部署的区块链业务网络定义。</p>
+
+<h4 id="进入-tutorial-network-目录">进入 tutorial-network 目录</h4>
+
+<pre><code>$ cd ~/fabric-dev-servers/tutorial-network
+</code></pre>
+
+<h4 id="后续的操作基本都在此目录下完成">后续的操作基本都在此目录下完成。</h4>
+
+<h4 id="生成-bna-文件">生成 .bna 文件</h4>
+
+<pre><code>$ composer archive create -t dir -n .
+</code></pre>
+
+<p><img src="../../uploads/img/dir.png" alt="dir" /></p>
+
+<p>执行成功后，在当前目录下会产生一个新文件 tutorial-network@0.0.1.bna，即是 tutorial-network 目录下文件的压缩包。解压后发现其中主要有文件及目录：lib/，models/，package.json，permissions.acl。我们会在以后详细解释、操作这些文件。</p>
+
+<h3 id="部署及启动业务网络">部署及启动业务网络</h3>
+
+<p>这是第一个示例区块链网络安装部署的最后一部分内容了。</p>
+
+<h4 id="部署示例业务网络-tutorial-network">部署示例业务网络 tutorial-network</h4>
+
+<pre><code>`$ composer network install --card PeerAdmin@hlfv1 --archiveFile tutorial-network@0.0.1.bna`
+</code></pre>
+
+<p>或者</p>
+
+<pre><code>`$ composer network install --c PeerAdmin@hlfv1 --a tutorial-network@0.0.1.bna`
+</code></pre>
+
+<p><img src="../../uploads/img/composerPeer.png" alt="composerPeer" /></p>
+
+<p>&ldquo;composer network install&rdquo; 命令会部署指定的 .bna 文件到 Fabric 网络。.bna 文件包括了这个业务网络的 Assets 模型、交易事务逻辑、访问控制规则等定义，但它并不能直接在 Fabric 上运行。.bna 文件是由 Composer 生成的，它是用 Composer 提供支持的一系列建模语言、规范定义的业务网络定义，我们必须将它先安装在 Fabric Peer 节点上。然后才可以在这个节点上启动运行这个业务网络。</p>
+
+<p>参数 -c (&ndash;card) 应指定为在上一步骤中生成 PeerAdmin Card 文件。</p>
+
+<p>参数 -a (&ndash;archiveFile) 应指定为将要部署的业务网络文件包。</p>
+
+<h4 id="启动业务网络">启动业务网络</h4>
+
+<pre><code>$ composer network start --networkName tutorial-network --networkVersion 0.0.1 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
+</code></pre>
+
+<p><img src="../../uploads/img/networkCard.png" alt="networkCard" /></p>
+
+<p>&ldquo;composer network start&rdquo; 用指定的 Card 启动这个网络；同时会生成一个当前业务网络的管理员 Card 文件，即此示例中的 networkadmin.card。</p>
+
+<p>这个文件是 zip 格式的压缩文件，解压缩后，可以发现包含两个文件：connection.json, metadata.json。其中，metadata.json 内容如下：</p>
+
+<pre><code>`{
+&quot;version&quot;:1,
+&quot;userName&quot;:&quot;admin&quot;,
+&quot;businessNetwork&quot;:&quot;tutorial-network&quot;,
+&quot;enrollmentSecret&quot;:&quot;adminpw&quot;
+}'
+</code></pre>
+
+<p>&ldquo;admin&rdquo;, &ldquo;tutorial-network&rdquo; 正是我们此前的定义的管理员用户名，及业务网络名。我们在以后可以通过类似 -c admin@tutorial-network 使用这个管理员身份。</p>
+
+<h4 id="导入-tutorial-network-管理员-card">导入 tutorial-network 管理员 Card</h4>
+
+<pre><code>`$ composer card import --file networkadmin.card`
+</code></pre>
+
+<p><img src="../../uploads/img/importCard.png" alt="importCard" /></p>
+
+<p>此时再查看 ~/.composer/cards 会发现新导入的 Card 文件。也可以直接通过命令查看。</p>
+
+<h4 id="查看导入的-card-文件">查看导入的 Card 文件</h4>
+
+<pre><code>$ composer card list
+
+The following Business Network Cards are available:
+Connection Profile: hlfv1
+┌────────────────────────┬───────────┬──────────────────┐
+│ Card Name              │ UserId    │ Business Network │
+├────────────────────────┼───────────┼──────────────────┤
+│ admin@tutorial-network │ admin     │ tutorial-network │
+├────────────────────────┼───────────┼──────────────────┤
+│ PeerAdmin@hlfv1        │ PeerAdmin │                  │
+└────────────────────────┴───────────┴──────────────────┘
+</code></pre>
+
+<h4 id="确认-tutorial-network-安装成功">确认 tutorial-network 安装成功</h4>
+
+<pre><code>$ composer network ping --card admin@tutorial-network
+</code></pre>
+
+<p><img src="../../uploads/img/pingCard.png" alt="pingCard" /></p>
+
+<h4 id="启动-rest-server">启动 REST Server</h4>
+
+<pre><code>`$ composer-rest-server -c admin@tutorial-network -n never`
+</code></pre>
+
+<p><img src="../../uploads/img/composerRestServer.png" alt="composerRestServer" /></p>
+
+<p>composer-rest-server 会根据部署的业务网络生成一系列 REST API,以方便用户通过浏览器或其他类似 curl 的应用程序访问这个区块链业务网络。如果在本机，我们可以通过这样的地址访问：</p>
+
+<p><a href="http://localhost:3000/explorer">http://localhost:3000/explorer</a></p>
+
+<h4 id="部署成功">部署成功</h4>
+
+<p>到这里，我们就成功地通过 Hyperledger Composer 安装了 Hyperledger Fabric，并部署、启动了第一个区块链业务网络 tutorial-network。</p>
+
+<h2 id="访问区块链网络">访问区块链网络</h2>
+
+<h3 id="通过浏览器访问-rest-service">通过浏览器访问 REST Service</h3>
+
+<p>在浏览器中输入 <a href="http://localhost:3000/explorer">http://localhost:3000/explorer</a></p>
+
+<h5 id="图-1-入口界面">图 1. 入口界面</h5>
+
+<p><img src="../../uploads/img/first.png" alt="first" /></p>
+
+<p>SampleAsset 是这个区块链业务网络中定义的资产模型 (Asset)。表示一种有形或无形的可改变、转移的商品。</p>
+
+<p>SampleParticipant 是这个业务网络的成员 (Participant)，可以拥有 Asset，提交 Transaction。</p>
+
+<p>SampleTransaction 是一种交易或事务 (Transaction)，由成员提交到业务网络，用以改变、转移商品，或触发其他操作。</p>
+
+<p>这些内容都可点击展开，显示 REST API 中对于此项内容的所有操作。</p>
+
+<h5 id="图-2-participant-操作">图 2. Participant 操作</h5>
+
+<p><img src="../../uploads/img/sec.png" alt="sec" /></p>
+
+<p>点击 <strong>GET</strong>，<strong>POST</strong> 等按钮，可以进行展开并进行各种操作。</p>
+
+<p>点击 <strong>POST</strong> 按钮，可添加一个新的 SampleParticipant</p>
+
+<h5 id="图-3-添加-sampleparticipant">图 3. 添加 SampleParticipant</h5>
+
+<p><img src="../../uploads/img/postData.png" alt="postData" /></p>
+
+<p>在 data 输入框中，输入如下内容：</p>
+
+<pre><code>{
+&quot;$class&quot;: &quot;org.example.biznet.SampleParticipant&quot;,
+&quot;participantId&quot;: &quot;SP_1&quot;,
+&quot;firstName&quot;: &quot;Alice&quot;,
+&quot;lastName&quot;: &quot;Fabric&quot;
+}
+</code></pre>
+
+<p>&ldquo;org.example.biznet.SampleParticipant&rdquo; 是将要添加 Participant 的模型名称；&rdquo;SP_1&rdquo; 是当前业务网络中这种实例的唯一 ID。</p>
+
+<p>点击 <strong>Try it out!</strong> 按钮，REST Service 会向这个区块链业务网络添加新的 SampleParticipant。如果添加成功，会在界面下方显示 &ldquo;Response Code 200&rdquo; 类似的输出内容。</p>
+
+<p><img src="../../uploads/img/response.png" alt="response" /></p>
+
+<p>添加成功后，再点击第一个操作 <strong>GET</strong>，展开后点击 <strong>Try it out!</strong> 按钮，即可列出所有 SampleParticipant。</p>
+
+<h5 id="图-4-列出所有-sampleparticipant">图 4. 列出所有 SampleParticipant</h5>
+
+<p><img src="../../uploads/img/getMsg.png" alt="getMsg" /></p>
+
+<h5 id="图-5-asset-操作">图 5. Asset 操作</h5>
+
+<p><img src="../../uploads/img/Asset.png" alt="Asset" /></p>
+
+<p>点击 <strong>GET</strong>，<strong>POST</strong> 等按钮，可以进行 SampleAsset 各种操作。</p>
+
+<p>点击 <strong>POST</strong> 按钮，可添加一个新的 SampleAsset。</p>
+
+<h5 id="图-6-添加一个新的-sampleasset">图 6. 添加一个新的 SampleAsset</h5>
+
+<p><img src="../../uploads/img/postAsset.png" alt="postAsset" /></p>
+
+<p>在 data 输入框中，输入如下内容：</p>
+
+<pre><code>{
+&quot;$class&quot;: &quot;org.example.biznet.SampleAsset&quot;,
+&quot;assetId&quot;: &quot;SA_1&quot;,
+&quot;owner&quot;: &quot;org.example.biznet.SampleParticipant#SP_1&quot;,
+&quot;value&quot;: &quot;$100&quot;
+}
+</code></pre>
+
+<p>&ldquo;org.example.biznet.SampleAsset&rdquo; 是将要添加实例的模型名；&rdquo;SA_1&rdquo; 是当前业务网络中这种实例的唯一 ID。&rdquo;org.example.biznet.SampleParticipant#SP_1&rdquo; 是对于之前建立的 ID 为 SP_1 的 SampleParticipant 的引用。</p>
+
+<p>我们会在以后详细分析这个模型的定义方法。</p>
+
+<p>点击 <strong>Try it out!</strong> 按钮，REST Service 会向这个区块链业务网络添加新的 SampleAsset。如果添加成功，会在界面下方显示 &ldquo;Response Code 200&rdquo; 类似的输出内容。</p>
+
+<p>按此方法，我们可以再添加另一个 SampleAsset，其 ID 为 SA_2。</p>
+
+<p>添加成功后，再点击第一个操作 <strong>GET</strong>，展开后点击 <strong>Try it out!</strong> 按钮，即可列出所有 SampleAsset。</p>
+
+<h5 id="图-7-列出所有-sampleasset">图 7. 列出所有 SampleAsset</h5>
+
+<p><img src="../../uploads/img/AssetMsg.png" alt="AssetMsg" /></p>
+
+<p>在 Response Body 中，可以发现以 JSON 格式列出的所有 SampleAsset 实例。</p>
+
+<h5 id="图-8-交易-transaction-操作">图 8. 交易（Transaction）操作</h5>
+
+<p><img src="../../uploads/img/transaction.png" alt="transaction" /></p>
+
+<p>点击 <strong>GET</strong>，<strong>POST</strong> 等按钮，可以进行交易的各种操作。</p>
+
+<p>点击 <strong>POST</strong> 按钮，可提交一个新的交易。</p>
+
+<h5 id="提交交易-transaction">提交交易（Transaction）</h5>
+
+<p>在 data 输入框中输入以下内容：</p>
+
+<pre><code>{
+&quot;$class&quot;: &quot;org.example.biznet.SampleTransaction&quot;,
+&quot;asset&quot;: &quot;org.example.biznet.SampleAsset#SA_1&quot;,
+&quot;newValue&quot;: &quot;$105&quot;
+}
+</code></pre>
+
+<p>&ldquo;org.example.biznet.SampleTransaction&rdquo; 是将要提交的交易模型名称；&rdquo;org.example.biznet. SampleTransaction#SA_1&rdquo; 是之前添加的 SampleAsset 实例的引用；newValue&rdquo;$105&rdquo; 是指将这个 SampleAsset 实例中的 value 改成新的值 &ldquo;$105&rdquo;。</p>
+
+<p>点击 <strong>Try it out!</strong> 按钮，REST Service 会向这个区块链业务网络提交这个交易。如果提交成功，会在界面下方显示 &ldquo;Response Code 200&rdquo; 类似的输出内容。</p>
+
+<p>提交成功后，我们再次操作 SampleAsset - GET， 即可发现 SampleAsset#SA_1 的 value 已经被改为 &ldquo;$105&rdquo;。</p>
+
+<p>&ldquo;newValue&rdquo; 这个操作的具体逻辑是在 ~/fabric-tools/tutorial-network/lib/logic.js 中定义的。其中所使用的 API，如 getAssetRegistry、getFactory 正是 Composer 提供的 Javascript API，这段 JS 会由被先前安装部署在 Peer 上的 Composer 业务网络执行。</p>
+
+<p>在 SampleTransaction – GET 中，点击 <strong>Try it out!</strong> ，即可列出所有提交成功的交易。</p>
+
+<h5 id="图-9-列出所有交易">图 9. 列出所有交易</h5>
+
+<p><img src="../../uploads/img/tranResp.png" alt="tranResp" /></p>
+
+<p>这里，每个交易比之前提交的内容，多了 transactionId, timestamp 两个内容，这是 tutorial-network 在处理交易时自动添加的。</p>
+
+<h5 id="图-10-system-操作">图 10. System 操作</h5>
+
+<p><img src="../../uploads/img/system.png" alt="system" /></p>
+
+<p>通过 System – GET /system/historian 操作，可以列出这个业务网络的历史操作记录。部分内容如下：</p>
+
+<pre><code>[
+  {
+    &quot;$class&quot;: &quot;org.hyperledger.composer.system.HistorianRecord&quot;,
+    &quot;transactionId&quot;: &quot;2498bf0c956ee14b20cbdeb3ec3b366ec3a16eaf0f760f3d57f64e3c5d6b7a10&quot;,
+    &quot;transactionType&quot;: &quot;org.hyperledger.composer.system.StartBusinessNetwork&quot;,
+    &quot;transactionInvoked&quot;: &quot;resource:org.hyperledger.composer.system.StartBusinessNetwork#2498bf0c956ee14b20cbdeb3ec3b366ec3a16eaf0f760f3d57f64e3c5d6b7a10&quot;,
+    &quot;eventsEmitted&quot;: [],
+    &quot;transactionTimestamp&quot;: &quot;2018-12-06T14:55:00.341Z&quot;
+  },
+  {
+    &quot;$class&quot;: &quot;org.hyperledger.composer.system.HistorianRecord&quot;,
+    &quot;transactionId&quot;: &quot;2498bf0c956ee14b20cbdeb3ec3b366ec3a16eaf0f760f3d57f64e3c5d6b7a10#0&quot;,
+    &quot;transactionType&quot;: &quot;org.hyperledger.composer.system.AddParticipant&quot;,
+    &quot;transactionInvoked&quot;: &quot;resource:org.hyperledger.composer.system.AddParticipant#2498bf0c956ee14b20cbdeb3ec3b366ec3a16eaf0f760f3d57f64e3c5d6b7a10#0&quot;,
+    &quot;eventsEmitted&quot;: [],
+    &quot;transactionTimestamp&quot;: &quot;2018-12-06T14:55:00.339Z&quot;
+  },
+  {
+    &quot;$class&quot;: &quot;org.hyperledger.composer.system.HistorianRecord&quot;,
+    &quot;transactionId&quot;: &quot;2498bf0c956ee14b20cbdeb3ec3b366ec3a16eaf0f760f3d57f64e3c5d6b7a10#1&quot;,
+    &quot;transactionType&quot;: &quot;org.hyperledger.composer.system.IssueIdentity&quot;,
+    &quot;transactionInvoked&quot;: &quot;resource:org.hyperledger.composer.system.IssueIdentity#2498bf0c956ee14b20cbdeb3ec3b366ec3a16eaf0f760f3d57f64e3c5d6b7a10#1&quot;,
+    &quot;eventsEmitted&quot;: [],
+    &quot;transactionTimestamp&quot;: &quot;2018-12-06T14:55:00.340Z&quot;
+  },
+  {
+    &quot;$class&quot;: &quot;org.hyperledger.composer.system.HistorianRecord&quot;,
+    &quot;transactionId&quot;: &quot;45791160a97c7cff2644891347abba98098a365ca5f2ef45cec260f50074be04&quot;,
+    &quot;transactionType&quot;: &quot;org.example.biznet.SampleTransaction&quot;,
+    &quot;transactionInvoked&quot;: &quot;resource:org.example.biznet.SampleTransaction#45791160a97c7cff2644891347abba98098a365ca5f2ef45cec260f50074be04&quot;,
+    &quot;participantInvoking&quot;: &quot;resource:org.hyperledger.composer.system.NetworkAdmin#admin&quot;,
+    &quot;identityUsed&quot;: &quot;resource:org.hyperledger.composer.system.Identity#7960cd206f7483890cb1976f08d641920741a92773536e1ab21d947ea1e47a18&quot;,
+    &quot;eventsEmitted&quot;: [
+      {
+        &quot;$class&quot;: &quot;org.example.biznet.SampleEvent&quot;,
+        &quot;asset&quot;: &quot;resource:org.example.biznet.SampleAsset#SA_1&quot;,
+        &quot;oldValue&quot;: &quot;$100&quot;,
+        &quot;newValue&quot;: &quot;$105&quot;,
+        &quot;eventId&quot;: &quot;45791160a97c7cff2644891347abba98098a365ca5f2ef45cec260f50074be04#0&quot;,
+        &quot;timestamp&quot;: &quot;2018-12-06T15:24:17.372Z&quot;
+      }
+    ],
+    &quot;transactionTimestamp&quot;: &quot;2018-12-06T15:24:17.372Z&quot;
+  },
+  {
+    &quot;$class&quot;: &quot;org.hyperledger.composer.system.HistorianRecord&quot;,
+    &quot;transactionId&quot;: &quot;5c9b1b35e47246d9bed14fcfd883fa8b6c5e5f86d46b8da0c7984d9db9f7807a&quot;,
+    &quot;transactionType&quot;: &quot;org.hyperledger.composer.system.AddParticipant&quot;,
+    &quot;transactionInvoked&quot;: &quot;resource:org.hyperledger.composer.system.AddParticipant#5c9b1b35e47246d9bed14fcfd883fa8b6c5e5f86d46b8da0c7984d9db9f7807a&quot;,
+    &quot;participantInvoking&quot;: &quot;resource:org.hyperledger.composer.system.NetworkAdmin#admin&quot;,
+    &quot;identityUsed&quot;: &quot;resource:org.hyperledger.composer.system.Identity#7960cd206f7483890cb1976f08d641920741a92773536e1ab21d947ea1e47a18&quot;,
+    &quot;eventsEmitted&quot;: [],
+    &quot;transactionTimestamp&quot;: &quot;2018-12-06T15:12:15.250Z&quot;
+  },
+  {
+    &quot;$class&quot;: &quot;org.hyperledger.composer.system.HistorianRecord&quot;,
+    &quot;transactionId&quot;: &quot;5e9da79cf6d12e7245da82ceae6b5bfbd84a6927e174e2c01951c4752b588ed3&quot;,
+    &quot;transactionType&quot;: &quot;org.hyperledger.composer.system.AddAsset&quot;,
+    &quot;transactionInvoked&quot;: &quot;resource:org.hyperledger.composer.system.AddAsset#5e9da79cf6d12e7245da82ceae6b5bfbd84a6927e174e2c01951c4752b588ed3&quot;,
+    &quot;participantInvoking&quot;: &quot;resource:org.hyperledger.composer.system.NetworkAdmin#admin&quot;,
+    &quot;identityUsed&quot;: &quot;resource:org.hyperledger.composer.system.Identity#7960cd206f7483890cb1976f08d641920741a92773536e1ab21d947ea1e47a18&quot;,
+    &quot;eventsEmitted&quot;: [],
+    &quot;transactionTimestamp&quot;: &quot;2018-12-06T15:21:29.899Z&quot;
+  },
+  {
+    &quot;$class&quot;: &quot;org.hyperledger.composer.system.HistorianRecord&quot;,
+    &quot;transactionId&quot;: &quot;a8b635f41fc5d0e2071b3a3970dbe53899e62785820566cfcaba814402604eee&quot;,
+    &quot;transactionType&quot;: &quot;org.hyperledger.composer.system.ActivateCurrentIdentity&quot;,
+    &quot;transactionInvoked&quot;: &quot;resource:org.hyperledger.composer.system.ActivateCurrentIdentity#a8b635f41fc5d0e2071b3a3970dbe53899e62785820566cfcaba814402604eee&quot;,
+    &quot;identityUsed&quot;: &quot;resource:org.hyperledger.composer.system.Identity#01899e04161a3a6d64670504fa122e55818295352929b6a616333a3739fde3f2&quot;,
+    &quot;eventsEmitted&quot;: [],
+    &quot;transactionTimestamp&quot;: &quot;2018-12-06T14:59:47.115Z&quot;
+  }
+]
+</code></pre>
+
+<p>示例中有 3 个操作：AddAsset, AddParticipant, SampleTransaction, StartBusinessNetwork。</p>
+
+<p>其中 SampleTransaction 是我们之前手工提交的 Transaction；而 AddAsset, AddParticipant, StartBusinessNetwork 则是业务网络自己产生的事务操作历史记录。由此我们可以知道，当前 tutorial-network 中的一些操作（如：添加 SampleAsset）其实是通过一系列 Composer 模型语言定义了一个操作，由 Composer 提交到 Fabric Peer Node，最终由业务网络执行完成的，即智能合约（Smart Contract）在 Fabric 中的实现：Chaincode。</p>
+
+<p>按上述方法，可以浏览这个简单的区块链网络所提供服务的所有 REST API。</p>
+
+<h3 id="使用-curl-访问-rest-service">使用 curl 访问 REST Service</h3>
+
+<p>以上介绍的在浏览器中对 REST Service 及区块链网络的访问，都可以通过 curl 及其他类似应用程序，通过控制台进行。</p>
+
+<h4 id="使用-curl-程序调用-rest-api-get-sampleasset">使用 curl 程序调用 REST API – GET SampleAsset</h4>
+
+<pre><code>`$ curl -X GET --header 'Accept: application/json'``'http://fabric11dev1:3000/api/SampleAsset'`
+</code></pre>
+
+<p>为方便起见，这里并没有指定任何用户信息，因为目前没有加入安全验证机制</p>
+
+<p>执行成功后，会返回 JSON 格式的文本。</p>
+
+<h4 id="使用-curl-程序调用-rest-api-post-sampletransaction">使用 curl 程序调用 REST API – POST SampleTransaction</h4>
+
+<pre><code>`$ curl -X POST --header 'Content-Type: application/json' --header 'Accept:``application/json' -d '{ ``&quot;$class&quot;: &quot;org.example.biznet.SampleTransaction&quot;,``&quot;asset&quot;: &quot;org.example.biznet.SampleAsset#SA_1&quot;,``&quot;newValue&quot;: &quot;$110&quot;``}' 'http://fabric11dev1:3000/api/SampleTransaction'`
+</code></pre>
+
+<h2 id="结语">结语</h2>
+
+<p>这对于 Fabric 的的学习还是初步的，旨在迅速建立对 Fabric 的直观映像，以便为下一步深入研究打好基础。</p>
+    
+        </div>
+    </section>
+
+    <footer class="post-full-footer">
+      <section class="author-card">
+        <img class="author-profile-image" src="https://wuzhanfly.github.io/uploads/logo.jpeg" alt="Author" />
+        <section class="author-card-content">
+            <h4 class="author-card-name"><a href="https://wuzhanfly.github.io/">wuzhanfly</a></h4>
+                <p>Coder Developer</p>
+        </section>
+      </section>
+    </footer>
+</article>
+    
+    
+    
+
+<div id="disqus_thread"></div>
+<script>
+
+
+
+
+var disqus_config = function () {
+this.page.url = "https:\/\/wuzhanfly.github.io\/hyperledgercompose%E5%88%9D%E6%8E%A2\/";  
+this.page.identifier = "https:\/\/wuzhanfly.github.io\/hyperledgercompose%E5%88%9D%E6%8E%A2\/"; 
+};
+
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = 'https://吴战飞.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  </div>
+</main>
+
+
+<aside class="read-next outer">
+  <div class="inner">
+    <div class="read-next-feed">      
+      
+<article class="read-next-card" 
+            style="background-image: url(https://wuzhanfly.github.io/uploads/book.jpeg);" >
+    <header class="read-next-card-header">
+        <small class="read-next-card-header-sitetitle">&mdash; Welcome &mdash;</small>
+        
+        <h3 class="read-next-card-header-title"><a href="https://wuzhanfly.github.iotags/blockchain/">#blockchain</a></h3>
+    </header>
+    <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+    </div>
+
+    <div class="read-next-card-content">
+      
+        <ul>
+                      
+        
+          <li><a href="https://wuzhanfly.github.io/blockchain-01/">BlockChain-01</a></li>            
+        
+          <li><a href="https://wuzhanfly.github.io/blockchain-02/">BlockChain-02</a></li>            
+        
+          <li><a href="https://wuzhanfly.github.io/hyperlerger-fabric%E5%AE%9E%E6%88%98/">Hyperlerger Fabric实战</a></li>            
+        
+          <li><a href="https://wuzhanfly.github.io/%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E5%85%AD%E5%B1%82%E6%A8%A1%E5%9E%8B/">区块链的六层模型</a></li>            
+        </ul>
+    </div>
+    <footer class="read-next-card-footer">
+      
+        <a href="https://wuzhanfly.github.iotags/blockchain/">See all related posts →</a>
+    </footer>
+</article>
+
+
+      
+      <article class="post-card post"> 
+    
+    <a class="post-card-image-link" href="https://wuzhanfly.github.io/hyperlerger-fabric%E5%AE%9E%E6%88%98/">
+      <div class="post-card-image" style="background-image: url(https://wuzhanfly.github.io/uploads/fabric.png)"></div>
+    </a>
+    
+
+    <div class="post-card-content">
+      <a class="post-card-content-link" href="https://wuzhanfly.github.io/hyperlerger-fabric%E5%AE%9E%E6%88%98/">
+          <header class="post-card-header">
+              <span class="post-card-tags">
+              #blockchain 
+              #Hyperledge  </span>
+              
+              <h2 class="post-card-title">Hyperlerger Fabric实战</h2>
+          </header>
+          <section class="post-card-excerpt">
+               
+                <p>票据背书的应用开发实例会对票据的应用场最进行简化，实现的业务逻辑包括 票据发布、票据背书、票据签收，票据拒收、票据查询等操作</p>
+              
+          </section>
+      </a>
+
+      <footer class="post-card-meta">
+          <img class="author-profile-image" src="https://wuzhanfly.github.io/uploads/logo.jpeg" alt="Author" />
+          <span class="post-card-author"><a href="/">wuzhanfly</a></span>
+      </footer>
+    </div>
+</article>
+      
+      
+      <article class="post-card post"> 
+    
+    <a class="post-card-image-link" href="https://wuzhanfly.github.io/couchdb%E5%B0%8F%E8%AF%95/">
+      <div class="post-card-image" style="background-image: url(https://wuzhanfly.github.io/uploads/couchDB.jpeg)"></div>
+    </a>
+    
+
+    <div class="post-card-content">
+      <a class="post-card-content-link" href="https://wuzhanfly.github.io/couchdb%E5%B0%8F%E8%AF%95/">
+          <header class="post-card-header">
+              <span class="post-card-tags">
+              #blockchain 
+              #Hyperledge  </span>
+              
+              <h2 class="post-card-title">couchDB小试</h2>
+          </header>
+          <section class="post-card-excerpt">
+               
+                <p>fabric1.2.1网络尝试couchdb数据库查询功能！！！！！</p>
+              
+          </section>
+      </a>
+
+      <footer class="post-card-meta">
+          <img class="author-profile-image" src="https://wuzhanfly.github.io/uploads/logo.jpeg" alt="Author" />
+          <span class="post-card-author"><a href="/">wuzhanfly</a></span>
+      </footer>
+    </div>
+</article>
+      
+    </div>
+  </div>
+</aside>
+
+<div class="floating-header">
+  <div class="floating-header-logo">
+    <a href="https://wuzhanfly.github.io/">
+      
+      <span></span>
+    </a>
+  </div>
+  <span class="floating-header-divider">&mdash;</span>
+  <div class="floating-header-title">hyperledgerCompose初探</div>
+  <div class="floating-header-share">
+    <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+     <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/></svg>
+    </div>
+    
+    <a class="floating-header-share-tw" href="https://twitter.com/share?text=hyperledgerCompose%e5%88%9d%e6%8e%a2&amp;url=https%3a%2f%2fwuzhanfly.github.io%2fhyperledgercompose%25E5%2588%259D%25E6%258E%25A2%2f"
+          onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+      </a>
+      <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fwuzhanfly.github.io%2fhyperledgercompose%25E5%2588%259D%25E6%258E%25A2%2f"
+          onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+      </a>
+  </div>
+
+  <progress class="progress" value="0">
+    <div class="progress-container">
+      <span class="progress-bar"></span>
+    </div>
+  </progress>
+</div>
+
+
+
+<footer class="site-footer outer">
+  <div class="site-footer-content inner">
+    <section class="copyright" style="line-height: 1.3em;">
+      <a href="/">wuzhanfly</a>  <br>
+      
+    </section>
+    <nav class="site-footer-nav">
+       
+        <a href="https://www.facebook.com/wufly" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://twitter.com/wuzhanfly" target="_blank" rel="noopener">Twitter</a>
+        <a href="https://github.com/wuzhanfly" target="_blank" rel="noopener">Github</a>
+        
+        
+    </nav>  
+  </div>
+</footer>
+
+</div>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="https://wuzhanfly.github.io/js/jquery.fitvids.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+    <script>
+
+
+
+
+
+$(document).ready(function () {
+    
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+</body></html>

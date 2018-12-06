@@ -6,10 +6,55 @@
     <description>Recent content in Posts on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh_CN</language>
-    <lastBuildDate>Mon, 27 Aug 2018 18:48:33 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 03 Dec 2018 15:48:33 +0800</lastBuildDate>
     
 	<atom:link href="https://wuzhanfly.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Hyperlerger Fabric实战</title>
+      <link>https://wuzhanfly.github.io/hyperlerger-fabric%E5%AE%9E%E6%88%98/</link>
+      <pubDate>Mon, 03 Dec 2018 15:48:33 +0800</pubDate>
+      
+      <guid>https://wuzhanfly.github.io/hyperlerger-fabric%E5%AE%9E%E6%88%98/</guid>
+      <description>Bill 以Hyperlerger Fabric 为底层的票据项目 项目前提 开发环境搭建  docker docker-compose git nodejs go
+安装docker curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun 安装docker-compose curl -L https://github.com/docker/compose/releases/download/1.20.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose chmod +x /usr/local/bin/docker-compose 安装git apt-get update apt-get install git 安装nodejs curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - sudo apt-get install -y nodejs 安装golang 以及go环境搭建 wget https://dl.google.com/go/go1.10.3.linux-amd64.tar.gz(1.10.3) tar -zxvf go1.10.3.linux-amd64.tar.gz -C /usr/local/ sudo vim /etc/profile export GOPATH=$HOME/go export GOBIN=$HOME/go/bin export GOROOT=/usr/local/go export PATH=$GOROOT/bin:$PATH source /etc/profile(很重要！！！！) docker fabric images下载 https://github.</description>
+    </item>
+    
+    <item>
+      <title>hyperledgerCompose初探</title>
+      <link>https://wuzhanfly.github.io/hyperledgercompose%E5%88%9D%E6%8E%A2/</link>
+      <pubDate>Sun, 02 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://wuzhanfly.github.io/hyperledgercompose%E5%88%9D%E6%8E%A2/</guid>
+      <description>基本概念与知识 基本概念与重要平台、技术、工具 用一句话来描述区块链：区块链是一个共享的不可修改的账本，可用来记录一个网络上所有交易的历史。这里所说的&amp;rdquo;交易&amp;rdquo;翻译自&amp;rdquo;Transaction&amp;rdquo;。也可以将之称为&amp;rdquo;事务&amp;rdquo;，本文将之统一称为&amp;rdquo;交易&amp;rdquo;。
+Hyperledger 是 Linux 基金会主持的一个开源项目，启动于 2015 年，其核心目标是建立开放的、标准化的、企业级的、能支持商业交易的分布式账本的框架与基础代码。
+Hyperledger Fabric 是 Hyperledger 项目的一个组成部分，是一个区块链框架的实现。它将成为区块链应用开发、解决方案的基础。Fabric 框架支持组件化、可插拔的共识服务（Consensus Service）、成员服务（Membership Service）；&amp;rdquo;许可（Permissioned）&amp;rdquo;特性使之为&amp;rdquo;私有性&amp;rdquo;、&amp;rdquo;保密性&amp;rdquo;提供了可靠的解决方案；智能合约（Smart Contracts）在 Fabric 中通过&amp;rdquo;Chaincode&amp;rdquo;得以实现。Fabric 最初是由 Digital Asset、IBM 贡献给 Hyperledger 项目的。
+Hyperledger Composer 也是 Hyperledger 项目的一个组成部分。通过它，人们可以更快速、容易地建立区块链业务模型，进行区块链网络及应用的开发、部署，并与现有系统、数据进行集成。
+本文中，对于 Fabric 的学习，正是以 Composer 作为入口与基础工具，这样学习的效率更高。在学习初期，Fabric 与 Composer 的知识是紧密结合的，在后期，我们会对这两项技术分别深入学习、研究。
+知识准备 区块链技术涉及到的技术比较多，本文希望能帮助读者将焦点一直放在区块链本身上，即使对某项技术学习得不是非常深入，也不会影响对于 Fabric 的学习。一般来说，希望读者还是能对以下知识预先有所了解：Ubuntu，Docker，Node.js，Javascript，npm，CA。
+安装 Fabric 之前的环境准备 Ubuntu 16.04 LTS 64-bit Fabric 支持 MacOSX、*nix 或者 Windows 10 操作系统；Composer 支持 Ubuntu Linux 14.04 / 16.04 LTS (64-bit)或者 MacOS 10.12 操作系统。
+现在，我们使用 Ubuntu16.</description>
+    </item>
+    
+    <item>
+      <title>couchDB小试</title>
+      <link>https://wuzhanfly.github.io/couchdb%E5%B0%8F%E8%AF%95/</link>
+      <pubDate>Mon, 12 Nov 2018 10:48:33 +0800</pubDate>
+      
+      <guid>https://wuzhanfly.github.io/couchdb%E5%B0%8F%E8%AF%95/</guid>
+      <description>Testcdb fabric网络尝试couchdb数据库查询功能！！！！！
+说说链码测试: 进入到fabric-sample，在chaincode文件加在新建一个文件夹（testcdb）将链码文件复制到testcdb：v 注意链码package 一定要依赖包以：main文件 正题： 跳转至 fabric-samples 的 chaincode-docker-devmode 目录：
+$ cd ~/hyfa/fabric-samples/chaincode-docker-devmode/  启动网络
+docker-compose -f docker-compose-simple.yaml up -d  上面的命令以 SingleSampleMSPSolo orderer配置文件启动网络，并以“dev模式”启 动对等体。它还启动了两个额外的容器 : 一个用于chaincode环境，一个用于与 chaincode交互的CLI。创建和加入通道的命令被嵌入到CLI容器中，因此可以立即 跳转到链式代码调用
+终端2 建立并启动链码
+打开第二个终端, 进入到 chaincode-docker-devmode 目录
+$ cd ~/hyfa/fabric-samples/chaincode-docker-devmode/  进入
+ sudo docker exec -it chaincode bash  编译 进入testcdb目录编译chaincode
+root@iZ2ze3kmnocjynow9knvjkZ:/opt/gopath/src/chaincode# cd testcdb root@iZ2ze3kmnocjynow9knvjkZ:/opt/gopath/src/chaincode/testcdb# go build  运行chaincod
+CORE_PEER_ADDRESS=peer:7052 CORE_CHAINCODE_ID_NAME=cdb:0 ./testcdb  终端3 使用链码
+ sudo docker exec -it cli bash  安装及实例化</description>
+    </item>
     
     <item>
       <title>杂记</title>
@@ -101,20 +146,6 @@ func (s *SmartContract) counter(stub shim.ChaincodeStubInterface, args []string)
 区块链目前的底层只适合做，低频高价值的业务。例如区块链+征信，区块链+资产，区块链+支付，区块链+供应链，房地产+区块链（登记，转账）
 你能保证上链的数据绝对不会被篡改；但你不能保证，上传的数据是真的
 安全分为很多层，区块链只能做到存储层的安全。例如安全分为用户层，应用层，逻辑层，存储层等等。区块链无法解决用户层，应用层，逻辑层等安全问题，他只能保证存储在硬盘上的区块不被修改。</description>
-    </item>
-    
-    <item>
-      <title>关于Hyperledger的点点滴</title>
-      <link>https://wuzhanfly.github.io/%E5%85%B3%E4%BA%8Ehyperledger%E7%9A%84%E7%82%B9%E7%82%B9%E6%BB%B4/</link>
-      <pubDate>Thu, 17 May 2018 15:48:33 +0800</pubDate>
-      
-      <guid>https://wuzhanfly.github.io/%E5%85%B3%E4%BA%8Ehyperledger%E7%9A%84%E7%82%B9%E7%82%B9%E6%BB%B4/</guid>
-      <description>Docker 开发环境 环境安装
-安装 fabric-samples
-git clone https://github.com/hyperledger/fabric-samples.git cd fabric-samples	 [root@localhost ~]# cd fabric-samples/chaincode-docker-devmode/ [root@localhost chaincode-docker-devmode]# mkdir chaincode [root@localhost chaincode-docker-devmode]# cp docker-compose-simple.yaml docker-compose.yaml [root@localhost chaincode-docker-devmode]# sed -i &amp;quot;s|./../chaincode|./chaincode|g&amp;quot; docker-compose.yaml	 chaincode 目录是开发目录
-清理镜像和容器
-docker rm -f $(docker ps -q -a) docker rmi -f $(docker images -q)	 安装所需镜像
-[root@localhost chaincode-docker-devmode]# curl -s https://raw.githubusercontent.com/oscm/shell/master/blockchain/hyperledger/fabric/1.1.0/all-in-one.sh | bash	[root@localhost chaincode-docker-devmode]# docker images REPOSITORY TAG IMAGE ID CREATED SIZE hyperledger/fabric-tools latest 6a8993b718c8 2 months ago 1.</description>
     </item>
     
     <item>
